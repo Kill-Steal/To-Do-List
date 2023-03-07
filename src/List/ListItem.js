@@ -33,7 +33,7 @@ const Check = ({ checked }) => {
     )
 }
 
-function ListItem({ title, date, catagory, checked, click }) {
+function ListItem({ title, date, catagory, check, click }) {
     return(
         <View style={styles.container}>
             <Circle catagory={catagory}/>
@@ -42,7 +42,7 @@ function ListItem({ title, date, catagory, checked, click }) {
                 <Text style={{fontSize: 16, marginVertical: 5}}>{date}</Text>
             </View>
             <Pressable onPress={() => click()}>
-                <Check checked={checked} />
+                <Check checked={check} />
             </Pressable>
         </View>
     );

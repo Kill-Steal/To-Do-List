@@ -55,7 +55,7 @@ export const AccountContext = createContext({
     updateAccount: (id, { email, password, name, phone }) => {},
     createList: ({ title, date, category }) => {},
     editList: (id, { title, date, category }) => {},
-    checkList: (id) => {},
+    checkedList: (id) => {},
 })
 
 function accountReducer(state, action) {
@@ -96,7 +96,7 @@ function toDoListReducer(state, action) {
                 (toDoList) => toDoList.id === action.payload.id
             );
             const checkToDoList = state[checkToDoListIndex];
-            checkToDoList.id = true;
+            //checkToDoList.id = true;
             const checkedToDoList = [...state];
             checkedToDoList[checkToDoList] = checkToDoList;
             return checkedToDoList;

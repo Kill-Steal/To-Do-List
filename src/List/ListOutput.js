@@ -6,10 +6,6 @@ import { getTimeFormat } from "../Utility/date";
 
 import { AccountContext } from "../store/account-context";
 
-const setChecked = () => {
-
-}
-
 function ListOutput() {
     const AccountCtx = useContext(AccountContext)
 
@@ -23,7 +19,7 @@ function ListOutput() {
                     data={AccountCtx.toDoList}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} checked={item.check} click={setChecked()} />
+                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} click={AccountCtx.checkedList(item.id)} />
                     )}
                 />
                 <View style={{marginBottom: 15}} />
