@@ -20,24 +20,31 @@ const Account = [
 const ToDoList =[
     {
         id: 1,
-        title: 'ทำการบ้าน',
-        date: new Date(2023, 2, 6, 21, 30),
-        category: 2,
-        check: false
+        title: 'Play Game!!!',
+        date: new Date('2023-03-06 20:30'),
+        category: 0,
+        check: true
     },
     {
         id: 2,
-        title: 'เข้านอน',
-        date: new Date(2023, 2, 6, 23, 0),
+        title: 'Do Homework!',
+        date: new Date('2023-03-06 23:00'),
         category: 2,
         check: false
     },
     {
         id: 3,
-        title: 'เล่นเกม',
-        date: new Date(2023, 2, 6, 14, 0),
-        category: 0,
-        check: false
+        title: 'Water The Plant',
+        date: new Date('2023-03-06 14:00'),
+        category: 1,
+        check: true
+    },
+    {
+        id: 4,
+        title: 'Shopping',
+        date: new Date('2023-03-07 13:00'),
+        category: 1,
+        check: true
     },
 ]
 
@@ -124,6 +131,7 @@ function AccountContextProvider({ children }) {
 
     const value = {
         account: accountState,
+        toDoList: toDoListState,
         addAccount: addAccount,
         updateAccount: updateAccount,
         createList: createList,

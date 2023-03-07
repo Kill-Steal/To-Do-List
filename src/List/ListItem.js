@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -33,7 +33,7 @@ const Check = ({ checked }) => {
     )
 }
 
-function ListItem({ title, date, catagory, checked }) {
+function ListItem({ title, date, catagory, checked, click }) {
     return(
         <View style={styles.container}>
             <Circle catagory={catagory}/>
@@ -41,7 +41,9 @@ function ListItem({ title, date, catagory, checked }) {
                 <Text style={{fontSize: 16, marginTop: 3}}>{title}</Text>
                 <Text style={{fontSize: 16, marginVertical: 5}}>{date}</Text>
             </View>
-            <Check checked={checked} />
+            <Pressable onPress={() => click()}>
+                <Check checked={checked} />
+            </Pressable>
         </View>
     );
 }

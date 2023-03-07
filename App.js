@@ -7,7 +7,7 @@ import HomeScreen from "./src/Screen/HomeScreen";
 import LoginScreen from "./src/Screen/LoginScreen";
 import RegisterScreen from "./src/Screen/RegisterScreen";
 import AccountContextProvider from "./src/store/account-context";
-import ActivityScreen2 from "./src/Screen/ActivityScreen2";
+import ActivityScreen from "./src/Screen/ActivityScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +19,7 @@ function App () {
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Activity" component={ActivityScreen2} />
+          <Stack.Screen name="Activity" component={ActivityScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </AccountContextProvider>
