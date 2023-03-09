@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-function SettingScreen({modalVisible, setModalVisible , showName, showEmail, showPhone}) {
+function SettingScreen({modalVisible, setModalVisible , showName, showEmail, showPhone, goLogin, goProfile}) {
     return (
         <Modal animationType="fade" transparent={true} visible={modalVisible} statusBarTranslucent={true}>
             <View style={modalStyles.background}>
@@ -17,6 +17,11 @@ function SettingScreen({modalVisible, setModalVisible , showName, showEmail, sho
                             <Text style={{fontSize: 15, marginTop: 6}}>{showEmail}</Text>
                             <Text style={{fontSize: 15, marginTop: 6}}>{showPhone}</Text>
                         </View>
+                        <Pressable style={{ position: 'absolute', marginLeft: 223, marginTop: 16}} onPress={() => {
+                            goProfile();
+                        }}>
+                            <MaterialIcons name="edit" size={16} color="black" />
+                        </Pressable>
                         <View style={modalStyles.profilePic}>
                             <FontAwesome5 name="user-alt" size={50} color="#2b1a61" />
                         </View>
@@ -39,7 +44,7 @@ function SettingScreen({modalVisible, setModalVisible , showName, showEmail, sho
                     </View>
                     <View>
                         <View style={modalStyles.line} />
-                        <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); navigation.navigate('Login')}}>
+                        <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); goLogin();}}>
                             <Ionicons name="log-out" size={30} color="black" style={{alignSelf: 'center'}} />
                             <Text style={modalStyles.textButton}>Log Out</Text>
                             <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 185}} />

@@ -9,6 +9,11 @@ import { AccountContext } from "../store/account-context";
 function ListOutput() {
     const AccountCtx = useContext(AccountContext)
 
+    function checkedHandle({id}) {
+        return 0;
+        // AccountCtx.checkedList(id);
+    }
+
     return (
         <View style={{margin: 15}}>
             <View style={listStyles.date}>
@@ -19,7 +24,7 @@ function ListOutput() {
                     data={AccountCtx.toDoList}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} click={AccountCtx.checkedList(item.id)} />
+                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} click={checkedHandle(item)} />
                     )}
                 />
                 <View style={{marginBottom: 15}} />

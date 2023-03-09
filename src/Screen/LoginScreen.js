@@ -49,6 +49,7 @@ function LoginScreen({ navigation }) {
                         setEmail('');
                         setPassword('');
                         navigation.navigate('Home', {
+                            id: selectedAccount.id,
                             name: selectedAccount.name,
                             email: selectedAccount.email,
                             phone: selectedAccount.phone

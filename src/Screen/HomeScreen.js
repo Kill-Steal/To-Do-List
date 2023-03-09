@@ -11,6 +11,7 @@ import SettingScreen from "./SettingScreen";
 function HomeScreen({ navigation, route }){
     const [modalVisible, setModalVisible] = useState(false);
 
+    const { id } = route.params;
     const { name } = route.params;
     const { email } = route.params;
     const { phone } = route.params;
@@ -49,6 +50,16 @@ function HomeScreen({ navigation, route }){
                 showName={showName}
                 showEmail={showEmail}
                 showPhone={showPhone}
+                goLogin={() => navigation.navigate('Login')}
+                goProfile={() => {
+                    setModalVisible(false);
+                    navigation.navigate('Profile',{
+                        id: id,
+                        name: showName,
+                        email: showEmail,
+                        phone: showPhone,
+                    });
+                }}
             />
 
         </View>

@@ -126,6 +126,7 @@ function AccountContextProvider({ children }) {
     }
 
     function checkedList(id){
+        console.log("Do It");
         dispatchToDoList({ type:'CHECK', payload: id});
     }
 
