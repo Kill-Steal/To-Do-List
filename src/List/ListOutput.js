@@ -1,18 +1,25 @@
 import React, {useContext} from "react";
-import { View,Text, StyleSheet, FlatList } from "react-native";
+import { View,Text, StyleSheet, FlatList, Pressable } from "react-native";
 
 import ListItem from "./ListItem";
 import { getTimeFormat } from "../Utility/date";
 
 import { AccountContext } from "../store/account-context";
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 function ListOutput() {
-    const accountCtx = useContext(AccountContext)
+    const accountCtx = useContext(AccountContext);
 
     return (
         <View style={{margin: 15}}>
-            <View style={listStyles.date}>
-                <Text style={{fontSize: 20, color: 'white'}}>TODAY</Text>
+            <View style={listStyles.header}>
+                <View style={listStyles.date}>
+                    <Text style={{fontSize: 20, color: 'white'}}>TODAY</Text>
+                </View>
+                <Pressable style={listStyles.arrow}>
+                    <MaterialCommunityIcons name="arrow-down-drop-circle-outline" size={26} color="white" />
+                </Pressable>
             </View>
             <View style={listStyles.content}>
                 <FlatList
@@ -29,6 +36,13 @@ function ListOutput() {
 }
 
 const listStyles = StyleSheet.create({
+    header: {
+        flexDirection: 'row'
+    },
+    arrow: {
+        justifyContent: 'center',
+        marginLeft: 240
+    },
     date: {
         width: 95,
         height: 35,
