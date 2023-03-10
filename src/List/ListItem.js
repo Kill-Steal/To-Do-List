@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
 import { MaterialIcons } from '@expo/vector-icons';
+import { AccountContext } from "../store/account-context";
 
 const Circle = ({ catagory }) => {
     let color = '#ffffff'
@@ -28,12 +29,14 @@ const Check = ({ checked }) => {
 
     return (
         <MaterialIcons name={shape} size={42} color="white" style={{
-            alignSelf: 'center',
+            marginTop: 5
         }} />
     )
 }
 
-function ListItem({ title, date, catagory, check, click }) {
+function ListItem({ title, date, catagory, check, id }) {
+    const accountCtx = useContext(AccountContext);
+
     return(
         <View style={styles.container}>
             <Circle catagory={catagory}/>
@@ -41,7 +44,7 @@ function ListItem({ title, date, catagory, check, click }) {
                 <Text style={{fontSize: 16, marginTop: 3}}>{title}</Text>
                 <Text style={{fontSize: 16, marginVertical: 5}}>{date}</Text>
             </View>
-            <Pressable onPress={() => click()}>
+            <Pressable onPress={() => accountCtx.checkedList(id)}>
                 <Check checked={check} />
             </Pressable>
         </View>

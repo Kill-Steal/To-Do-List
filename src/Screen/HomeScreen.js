@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, FlatList, Button } from "react-native";
 
 import { MaterialIcons } from '@expo/vector-icons';
@@ -7,28 +7,39 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import ListOutput from "../List/ListOutput";
 import SettingScreen from "./SettingScreen";
+import { AccountContext } from "../store/account-context";
 
 function HomeScreen({ navigation, route }){
+    const accountCtx = useContext(AccountContext);
+
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { id } = route.params;
-    const { name } = route.params;
-    const { email } = route.params;
-    const { phone } = route.params;
+    // const { id } = route.params;
+    const id = 1;
+    
+    const index = accountCtx.account.findIndex(
+        (account) => account.id === id
+    )
 
-    const [showName, setShowName] = useState(name)
-    const [showEmail, setShowEmail] = useState(email)
-    const [showPhone, setShowPhone] = useState(phone)
+    const name = accountCtx.account[id].name;
+    const email = accountCtx.account[id].email;
+    const phone = accountCtx.account[id].phone;
 
-    if(showName === '') setShowName('Ditthaphong Siriloetthitikon')
-    if(showEmail === '') setShowEmail('ditthaphong.s@ku.th')
-    if(showPhone === '') setShowPhone('0899988899')
+    console.log(accountCtx.account);
 
+    // const [showName, setShowName] = useState(name)
+    // const [showEmail, setShowEmail] = useState(email)
+    // const [showPhone, setShowPhone] = useState(phone)
+
+    // if(showName === '') setShowName('Ditthaphong Siriloetthitikon')
+    // if(showEmail === '') setShowEmail('ditthaphong.s@ku.th')
+    // if(showPhone === '') setShowPhone('0899988899')
+    console.log(`ID: ${id}`)
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.profile}>
-                    <Text style={styles.name}>{showName}</Text>
+                    <Text style={styles.name}>{name}</Text>
                     <Pressable style={styles.profilePic} onPress={() => setModalVisible(true)} >
                         <FontAwesome5 name="user-alt" size={26} color="#c1aefc" />
                     </Pressable>
@@ -47,17 +58,17 @@ function HomeScreen({ navigation, route }){
             <SettingScreen
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
-                showName={showName}
-                showEmail={showEmail}
-                showPhone={showPhone}
+                showName={name}
+                showEmail={email}
+                showPhone={phone}
                 goLogin={() => navigation.navigate('Login')}
                 goProfile={() => {
                     setModalVisible(false);
                     navigation.navigate('Profile',{
                         id: id,
-                        name: showName,
-                        email: showEmail,
-                        phone: showPhone,
+                        // name: name,
+                        // email: email,
+                        // phone: phone,
                     });
                 }}
             />

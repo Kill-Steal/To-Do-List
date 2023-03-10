@@ -2,14 +2,14 @@ import { createContext, useReducer } from "react";
 
 const Account = [
     {
-        id: 1,
+        id: 0,
         email: 'ditthaphong.s@live.ku.th',
         name: 'Ditthaphong',
         phone: '0123456789',
         password: '123546',
     },
     {
-        id: 2,
+        id: 1,
         email: 'someone@gmail.com',
         name: 'somebody',
         phone: '0987415632',
@@ -52,7 +52,7 @@ export const AccountContext = createContext({
     account: [],
     toDoList: [],
     addAccount: ({ email, password, name, phone }) => {},
-    updateAccount: (id, { email, password, name, phone }) => {},
+    updateAccount: (id, { email, name, phone }) => {},
     createList: ({ title, date, category }) => {},
     editList: (id, { title, date, category }) => {},
     checkedList: (id) => {},
@@ -61,7 +61,7 @@ export const AccountContext = createContext({
 function accountReducer(state, action) {
     switch(action.type) {
         case 'ADD':
-            const accountId = Account[Account.length - 1].id + 1;
+            const accountId = Account.length;
             return [{...action.payload, id: accountId}, ...state];
         case 'UPDATE':
             const updatableAccountIndex = state.findIndex(
@@ -96,7 +96,7 @@ function toDoListReducer(state, action) {
                 (toDoList) => toDoList.id === action.payload.id
             );
             const checkToDoList = state[checkToDoListIndex];
-            //checkToDoList.id = true;
+            checkToDoList.check = !checkToDoList.check;
             const checkedToDoList = [...state];
             checkedToDoList[checkToDoList] = checkToDoList;
             return checkedToDoList;
@@ -126,8 +126,8 @@ function AccountContextProvider({ children }) {
     }
 
     function checkedList(id){
-        console.log("Do It");
-        dispatchToDoList({ type:'CHECK', payload: id});
+        console.log("Do It: "+id);
+        dispatchToDoList({ type:'CHECK', payload: {id: id}});
     }
 
     const value = {

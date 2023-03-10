@@ -43,16 +43,19 @@ function LoginScreen({ navigation }) {
                 )
                 if(index !== -1){
                     const selectedAccount = accountCtx.account[index];
-                    if(selectedAccount.password !== password)
+                    if(selectedAccount.password !== password) {
                         Alert.alert("Your account doesn't exist.")
+                        setPassword('');
+                    }
                     else {
                         setEmail('');
                         setPassword('');
+                        console.log(`ID: ${selectedAccount.id}`)
                         navigation.navigate('Home', {
                             id: selectedAccount.id,
-                            name: selectedAccount.name,
-                            email: selectedAccount.email,
-                            phone: selectedAccount.phone
+                            // name: selectedAccount.name,
+                            // email: selectedAccount.email,
+                            // phone: selectedAccount.phone
                         })
                     }
                 } else Alert.alert("Your account doesn't exist.")

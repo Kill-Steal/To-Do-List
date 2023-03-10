@@ -7,12 +7,7 @@ import { getTimeFormat } from "../Utility/date";
 import { AccountContext } from "../store/account-context";
 
 function ListOutput() {
-    const AccountCtx = useContext(AccountContext)
-
-    function checkedHandle({id}) {
-        return 0;
-        // AccountCtx.checkedList(id);
-    }
+    const accountCtx = useContext(AccountContext)
 
     return (
         <View style={{margin: 15}}>
@@ -21,10 +16,10 @@ function ListOutput() {
             </View>
             <View style={listStyles.content}>
                 <FlatList
-                    data={AccountCtx.toDoList}
+                    data={accountCtx.toDoList}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} click={checkedHandle(item)} />
+                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} id={item.id}/>
                     )}
                 />
                 <View style={{marginBottom: 15}} />

@@ -66,10 +66,12 @@ function RegisterScreen({ navigation }) {
                     name: name,
                     phone: phone,
                 });
+                const sendId = accountCtx.account.length;
                 navigation.navigate('Home',{
-                    email: email,
-                    name: name,
-                    phone: phone,
+                    id: sendId,
+                    // email: email,
+                    // name: name,
+                    // phone: phone,
                 });
                 //-----------------------------------------
             }}>

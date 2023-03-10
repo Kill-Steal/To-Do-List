@@ -1,13 +1,20 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { View,Text, StyleSheet, TextInput, Button, TouchableOpacity } from "react-native";
 
 import { Ionicons } from '@expo/vector-icons';
+import { AccountContext } from "../store/account-context";
 
-function ProfileScreen({route}) {
+function ProfileScreen({navigation, route}) {
+    const accountCtx = useContext(AccountContext);
+
     const {id} = route.params;
-    const {name} = route.params;
-    const {email} = route.params;
-    const {phone} = route.params;
+    // const {name} = route.params;
+    // const {email} = route.params;
+    // const {phone} = route.params;
+
+    const name = accountCtx.account[id].name;
+    const email = accountCtx.account[id].email;
+    const phone = accountCtx.account[id].phone;
 
     const [inputValues, setInputValues] = useState({
         name: name,
@@ -29,8 +36,11 @@ function ProfileScreen({route}) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="chevron-back" size={50} color="#383d56" />
-                <Text style={{ fontSize: 36, marginLeft: 20, marginBottom: 10 }}>Profile</Text>
+                <Ionicons name="chevron-back" size={50} color="#383d56" onPress={() => navigation.goBack()} style={{
+                    marginBottom: 5,
+                    marginLeft: 5
+                }}/>
+                <Text style={{ fontSize: 36, marginLeft: 15, marginBottom: 10 }}>Profile</Text>
             </View>
             <View>
                 <View style={styles.input}>
@@ -51,19 +61,32 @@ function ProfileScreen({route}) {
                         onChangeText={inputChangeHandlder.bind(this, 'phone')}
                     />
                 </View>
-                <View style={styles.input}>
+                {/* <View style={styles.input}>
                     <Text style={styles.inputText}>Password</Text>
-                    <TextInput style={styles.inputField} 
+                    <TextInput value={password} style={styles.inputField} 
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                </View>
+                </View> */}
             </View>
             <TouchableOpacity style={styles.button} onPress={() => {
-
+                const index = accountCtx.account.findIndex(
+                    (account) => account.id === id
+                )
+                // const oldPassword = accountCtx.account[index].password
+                // if(password === '') {setPassword(`${oldPassword}`); console.log(`Changed Password: ${password}`);}
+                accountCtx.updateAccount(id,{
+                    email: inputValues.email,
+                    name: inputValues.name,
+                    phone: inputValues.phone,
+                    // password: password,
+                });
+                navigation.navigate('Home',{
+                    id: id,
+                });
             }}>
-                    <Text style={{color: '#383d56', fontSize: 22}}>Edit</Text>
-                </TouchableOpacity>
+                <Text style={{color: '#383d56', fontSize: 22}}>Edit</Text>
+            </TouchableOpacity>
         </View>
     );
 }
