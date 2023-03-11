@@ -10,7 +10,7 @@ function ListDate() {
     const accountCtx = useContext(AccountContext);
 
     const date = accountCtx.toDoList[0].date;
-    console.log(date);
+    // console.log(date);
 
     return (
         <View>

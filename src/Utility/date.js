@@ -13,17 +13,21 @@ export function getTimeFormat(date){
 
 export function getDateFormat(date){
     const today = new Date();
-    if(today === date){
-        
+
+    console.log(`Today: ${today.getFullYear()}\nDate: ${date.getFullYear()}`)
+
+    if(today.getFullYear == date.getFullYear()){
+        return 'TODAY';
     }
+    else{
+        let day = 0;
+        let month = getMonthName(date);
 
-    let day = 0;
-    let month = getMonthName(date);
+        if(date.getDate() < 10) day = `0${date.getDate()}`;
+        else day = date.getDate();
 
-    if(date.getDate() < 10) day = `0${date.getDate()}`;
-    else day = date.getDate();
-
-    return `${day} ${month}`;
+        return `${day} ${month}`;
+    }
 }
 //Get Month Short Name
 const getMonthName = (date) => {
