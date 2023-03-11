@@ -26,6 +26,7 @@ export function getDateFormat(date){
     return `${day} ${month}`;
 }
 
+
 const getMonthName = (date) => {
     switch(date.getMonth()) {
         case 0:
@@ -52,5 +53,7 @@ const getMonthName = (date) => {
             return 'Nov'
         case 11:
             return 'Dec'
+        default:
+            return 'No_Month'
     }
 }
