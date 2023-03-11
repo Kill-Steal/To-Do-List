@@ -25,7 +25,7 @@ export function getDateFormat(date){
 
     return `${day} ${month}`;
 }
-
+//Get Month Short Name
 const getMonthName = (date) => {
     switch(date.getMonth()) {
         case 0:
