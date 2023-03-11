@@ -9,7 +9,7 @@ import { getDateFormat } from "../Utility/date";
 function ListDate() {
     const accountCtx = useContext(AccountContext);
 
-    const date = accountCtx.toDoList[0].date;
+    const date = new Date();
     // console.log(date);
 
     return (

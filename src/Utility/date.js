@@ -16,7 +16,7 @@ export function getDateFormat(date){
 
     console.log(`Today: ${today.getFullYear()}\nDate: ${date.getFullYear()}`)
 
-    if(today.getFullYear == date.getFullYear()){
+    if(today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth() && today.getDate() === date.getDate()){
         return 'TODAY';
     }
     else{

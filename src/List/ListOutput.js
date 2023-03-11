@@ -11,9 +11,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 function ListOutput({date}) {
     const accountCtx = useContext(AccountContext);
 
-    const [expand, setExpand] = useState(false); //Don't forget set true
-
-    // let expand = true; //Don't forget set true
+    const [expand, setExpand] = useState(true); //Don't forget set true
 
     return (
         <View style={{margin: 15}}>
@@ -54,7 +52,14 @@ function ListOutput({date}) {
                         data={accountCtx.toDoList}
                         keyExtractor={(item) => item.id}
                         renderItem={({ item }) => (
-                            <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} id={item.id} expand={expand}/>
+                            <ListItem
+                                title={item.title}
+                                date={item.date}
+                                catagory={item.category}
+                                check={item.check}
+                                id={item.id}
+                                expand={expand}
+                            />
                         )}
                     />
                     <View style={{marginBottom: 15}} />
