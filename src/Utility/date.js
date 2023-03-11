@@ -52,5 +52,7 @@ const getMonthName = (date) => {
             return 'Nov'
         case 11:
             return 'Dec'
+        default:
+            return 'No_Month'
     }
 }
