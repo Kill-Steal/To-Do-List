@@ -25,7 +25,7 @@ export function getDateFormat(date){
 
     return `${day} ${month}`;
 }
-//kuymhanhon
+
 const getMonthName = (date) => {
     switch(date.getMonth()) {
         case 0:
