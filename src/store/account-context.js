@@ -21,14 +21,14 @@ const ToDoList =[
     {
         id: 1,
         title: 'Play Game!!!',
-        date: new Date('2023-03-06 20:30'),
+        date: new Date('2023-03-11 23:30'),
         category: 0,
         check: true
     },
     {
         id: 2,
         title: 'Do Homework!',
-        date: new Date('2023-03-06 23:00'),
+        date: new Date('2023-03-11 23:00'),
         category: 2,
         check: false
     },

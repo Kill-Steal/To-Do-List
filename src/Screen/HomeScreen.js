@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import ListOutput from "../List/ListOutput";
+import ListDate from "../List/ListDate";
 import SettingScreen from "./SettingScreen";
 import { AccountContext } from "../store/account-context";
 
@@ -25,7 +25,7 @@ function HomeScreen({ navigation, route }){
     const email = accountCtx.account[id].email;
     const phone = accountCtx.account[id].phone;
 
-    console.log(accountCtx.account);
+    // console.log(accountCtx.account);
 
     // const [showName, setShowName] = useState(name)
     // const [showEmail, setShowEmail] = useState(email)
@@ -34,7 +34,7 @@ function HomeScreen({ navigation, route }){
     // if(showName === '') setShowName('Ditthaphong Siriloetthitikon')
     // if(showEmail === '') setShowEmail('ditthaphong.s@ku.th')
     // if(showPhone === '') setShowPhone('0899988899')
-    console.log(`ID: ${id}`)
+    // console.log(`ID: ${id}`)
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -53,7 +53,7 @@ function HomeScreen({ navigation, route }){
                 </View>
             </View>
 
-            <ListOutput/>
+            <ListDate/>
 
             <SettingScreen
                 modalVisible={modalVisible}

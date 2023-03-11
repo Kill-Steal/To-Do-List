@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useState, useContext} from "react";
 import { View,Text, StyleSheet, FlatList, Pressable } from "react-native";
 
 import ListItem from "./ListItem";
@@ -8,29 +8,58 @@ import { AccountContext } from "../store/account-context";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-function ListOutput() {
+function ListOutput({date}) {
     const accountCtx = useContext(AccountContext);
+
+    const [expand, setExpand] = useState(false); //Don't forget set true
+
+    // let expand = true; //Don't forget set true
 
     return (
         <View style={{margin: 15}}>
             <View style={listStyles.header}>
+                {!expand&&(
+                    <View style={listStyles.fold}>
+                        <FlatList
+                            horizontal
+                            data={accountCtx.toDoList}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <View style={{alignItems: 'center', flexDirection: 'row'}}>
+                                    <ListItem catagory={item.category} expand={expand} />
+                                </View>
+                            )}
+                        />
+                        <Pressable onPress={() => setExpand(true)}>
+                            <MaterialCommunityIcons name="arrow-down-drop-circle-outline" size={24} color="white" />
+                        </Pressable>
+                        <View style={{marginBottom: 15}} />
+                    </View>
+                )}
+
                 <View style={listStyles.date}>
-                    <Text style={{fontSize: 20, color: 'white'}}>TODAY</Text>
+                    <Text style={{fontSize: 20, color: 'white'}}>{date}</Text>
                 </View>
-                <Pressable style={listStyles.arrow}>
-                    <MaterialCommunityIcons name="arrow-down-drop-circle-outline" size={26} color="white" />
-                </Pressable>
+
+                {expand&&(
+                    <Pressable style={listStyles.arrow} onPress={() => setExpand(false)}>
+                        <MaterialCommunityIcons name="arrow-down-drop-circle-outline" size={26} color="white" />
+                    </Pressable>
+                )}
             </View>
-            <View style={listStyles.content}>
-                <FlatList
-                    data={accountCtx.toDoList}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} id={item.id}/>
-                    )}
-                />
-                <View style={{marginBottom: 15}} />
-            </View>
+
+            {expand&&(
+                <View style={listStyles.content}>
+                    <FlatList
+                        data={accountCtx.toDoList}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+                            <ListItem title={item.title} date={getTimeFormat(item.date)} catagory={item.category} check={item.check} id={item.id} expand={expand}/>
+                        )}
+                    />
+                    <View style={{marginBottom: 15}} />
+                </View>
+            )}
         </View>
     );
 }
@@ -58,6 +87,18 @@ const listStyles = StyleSheet.create({
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
         borderTopRightRadius: 10,
+    },
+    fold: {
+        backgroundColor: '#645490',
+        position: 'absolute',
+        width: 270,
+        height: 24,
+        alignSelf: 'flex-end',
+        marginLeft: 92,
+        flexDirection: 'row',
+        borderTopRightRadius: 12,
+        borderBottomRightRadius: 12,
+        paddingLeft: 2,
     }
 });
 
