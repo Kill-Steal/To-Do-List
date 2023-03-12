@@ -1,3 +1,4 @@
+//third
 import React, {useContext} from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
@@ -37,44 +38,42 @@ const Check = ({ checked }) => {
 function ListItem({ title, date, catagory, check, id, expand }) {
     const accountCtx = useContext(AccountContext);
 
-    const currentDate = (actDate) => {
-        const curDate = new Date();
+    // const currentDate = (actDate) => {
+    //     const curDate = new Date();
 
-        const date1 = new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate());
-        const date2 = new Date(actDate.getFullYear(), actDate.getMonth(), actDate.getDate());
+    //     const date1 = new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate());
+    //     const date2 = new Date(actDate.getFullYear(), actDate.getMonth(), actDate.getDate());
 
-        if(date1.getTime() === date2.getTime())
-            return true;
-        else
-            return false;
-    }
+    //     if(date1.getTime() === date2.getTime())
+    //         return true;
+    //     else
+    //         return false;
+    // }
 
-    const show = currentDate(date);
+    // const show = currentDate(date);
 
     return(
         <View>
-            {show&&(<View>
-                {expand&&(
-                    <View style={styles.container}>
-                        <View style={{marginTop: 7, marginHorizontal: 10}}>
-                            <Circle catagory={catagory}/>
-                        </View>
-                        <View style={{flexDirection: 'column', alignSelf: 'center', justifyContent: 'center', width: 250}}>
-                            <Text style={{fontSize: 16, marginTop: 3}}>{title}</Text>
-                            <Text style={{fontSize: 16, marginVertical: 5}}>{getTimeFormat(date)}</Text>
-                        </View>
-                        <Pressable onPress={() => accountCtx.checkedList(id)}>
-                            <Check checked={check} />
-                        </Pressable>
+            {expand&&(
+                <View style={styles.container}>
+                    <View style={{marginTop: 7, marginHorizontal: 10}}>
+                        <Circle catagory={catagory}/>
                     </View>
-                )}
+                    <View style={{flexDirection: 'column', alignSelf: 'center', justifyContent: 'center', width: 250}}>
+                        <Text style={{fontSize: 16, marginTop: 3}}>{title}</Text>
+                        <Text style={{fontSize: 16, marginVertical: 5}}>{getTimeFormat(date)}</Text>
+                    </View>
+                    <Pressable onPress={() => accountCtx.checkedList(id)}>
+                        <Check checked={check} />
+                    </Pressable>
+                </View>
+            )}
 
-                {!expand&&(
-                    <View style={{marginLeft: 7}}>
-                        <Circle catagory={catagory} />
-                    </View>
-                )}
-            </View>)}
+            {!expand&&(
+                <View style={{marginLeft: 7}}>
+                    <Circle catagory={catagory} />
+                </View>
+            )}
         </View>
     );
 }

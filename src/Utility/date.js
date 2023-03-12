@@ -1,3 +1,8 @@
+export function getFullDate(date){
+    const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    return currentDate;
+}
+
 export function getTimeFormat(date){
     let hour = 0;
     let minute = 0;
@@ -14,8 +19,6 @@ export function getTimeFormat(date){
 export function getDateFormat(date){
     const today = new Date();
 
-    console.log(`Today: ${today.getFullYear()}\nDate: ${date.getFullYear()}`)
-
     if(today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth() && today.getDate() === date.getDate()){
         return 'TODAY';
     }
@@ -29,6 +32,21 @@ export function getDateFormat(date){
         return `${day} ${month}`;
     }
 }
+
+export function getListCurrentDate(list, date) {
+    const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    const listCurrentDate = [];
+    
+    for(i = 0; i < list.length; i++){
+        const listDate = new Date(list[i].date.getFullYear(), list[i].date.getMonth(), list[i].date.getDate());
+        if(listDate.getTime() === currentDate.getTime())
+            listCurrentDate.push(list[i]);
+    }
+
+    return listCurrentDate;
+}
+
 //Get Month Short Name
 const getMonthName = (date) => {
     switch(date.getMonth()) {
@@ -59,4 +77,20 @@ const getMonthName = (date) => {
         default:
             return 'No_Month'
     }
+}
+
+export function removeSameDate(sortedToDoList) {
+    const date = sortedToDoList;
+
+    const newDateList = [];
+
+    for(i = 0; i < date.length; i++){
+        let notHave = true;
+        const currentDate = new Date(date[i].date.getFullYear(), date[i].date.getMonth(), (date[i].date.getDate()));
+        for(j = 0; j < newDateList.length; j++) {
+            if(currentDate.getTime() === newDateList[j].getTime()) notHave = false;
+        }
+        if(notHave === true) newDateList.push(currentDate);
+    }
+    return newDateList;
 }

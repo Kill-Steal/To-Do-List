@@ -1,17 +1,20 @@
+//second
 import React, {useState, useContext} from "react";
 import { View,Text, StyleSheet, FlatList, Pressable } from "react-native";
 
 import ListItem from "./ListItem";
-import { getTimeFormat } from "../Utility/date";
+import { getDateFormat, getListCurrentDate } from "../Utility/date";
 
 import { AccountContext } from "../store/account-context";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-function ListOutput({date}) {
+function ListOutput({date, sortedData}) {
     const accountCtx = useContext(AccountContext);
 
     const [expand, setExpand] = useState(true); //Don't forget set true
+
+    let listCurrentDate = getListCurrentDate(sortedData, date);
 
     return (
         <View style={{margin: 15}}>
@@ -20,11 +23,11 @@ function ListOutput({date}) {
                     <View style={listStyles.fold}>
                         <FlatList
                             horizontal
-                            data={accountCtx.toDoList}
+                            data={listCurrentDate}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => (
                                 <View style={{alignItems: 'center', flexDirection: 'row'}}>
-                                    <ListItem catagory={item.category} expand={expand} />
+                                    <ListItem catagory={item.category} expand={expand} date={item.date} />
                                 </View>
                             )}
                         />
@@ -36,7 +39,7 @@ function ListOutput({date}) {
                 )}
 
                 <View style={listStyles.date}>
-                    <Text style={{fontSize: 20, color: 'white'}}>{date}</Text>
+                    <Text style={{fontSize: 20, color: 'white'}}>{getDateFormat(date)}</Text>
                 </View>
 
                 {expand&&(
@@ -49,7 +52,7 @@ function ListOutput({date}) {
             {expand&&(
                 <View style={listStyles.content}>
                     <FlatList
-                        data={accountCtx.toDoList}
+                        data={listCurrentDate}
                         keyExtractor={(item) => item.id}
                         renderItem={({ item }) => (
                             <ListItem

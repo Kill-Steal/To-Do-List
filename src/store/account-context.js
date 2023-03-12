@@ -46,6 +46,13 @@ const ToDoList =[
         category: 1,
         check: true
     },
+    {
+        id: 5,
+        title: 'Somethings',
+        date: new Date('2023-03-11 13:30'),
+        category: 1,
+        check: true
+    },
 ]
 
 export const AccountContext = createContext({
