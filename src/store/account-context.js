@@ -60,7 +60,7 @@ const ToDoList =[
         category: 1,
         check: false
     },
-]
+];
 
 export const AccountContext = createContext({
     account: [],

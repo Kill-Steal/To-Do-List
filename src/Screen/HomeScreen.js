@@ -4,15 +4,18 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, FlatList, B
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import ListDate from "../List/ListDate";
 import SettingScreen from "./SettingScreen";
 import { AccountContext } from "../store/account-context";
+import CreateScreen from "./CreateScreen";
 
 function HomeScreen({ navigation, route }){
     const accountCtx = useContext(AccountContext);
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [createModalVisible, setCreateModalVisible] = useState(false);
 
     // const { id } = route.params;
     const id = 1;
@@ -54,6 +57,14 @@ function HomeScreen({ navigation, route }){
             </View>
 
             <ListDate isHome={true}/>
+
+            <View style={styles.createButton}>
+                <TouchableOpacity onPress={() => setCreateModalVisible(true)}>
+                    <AntDesign name="pluscircle" size={50} color="#C1AEFC" />
+                </TouchableOpacity>
+            </View>
+
+            <CreateScreen createModalVisible={createModalVisible} setCreateModalVisible={setCreateModalVisible}/>
 
             <SettingScreen
                 modalVisible={modalVisible}
@@ -141,6 +152,14 @@ const styles = StyleSheet.create({
         marginLeft: 370,
         marginTop: 25,
         borderWidth: 1
+    },
+    createButton: {
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        marginTop: 710,
+        marginRight: '5%',
+        justifyContent: 'flex-end',
+        maxHeight: 50,
     },
 });
 
