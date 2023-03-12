@@ -34,12 +34,14 @@ export function getDateFormat(date){
 }
 
 export function getListCurrentDate(list, date) {
-    const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    // const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const currentDate = getFullDate(date);
 
     const listCurrentDate = [];
     
     for(i = 0; i < list.length; i++){
-        const listDate = new Date(list[i].date.getFullYear(), list[i].date.getMonth(), list[i].date.getDate());
+        // const listDate = new Date(list[i].date.getFullYear(), list[i].date.getMonth(), list[i].date.getDate());
+        const listDate = getFullDate(list[i].date)
         if(listDate.getTime() === currentDate.getTime())
             listCurrentDate.push(list[i]);
     }
@@ -86,11 +88,15 @@ export function removeSameDate(sortedToDoList) {
 
     for(i = 0; i < date.length; i++){
         let notHave = true;
-        const currentDate = new Date(date[i].date.getFullYear(), date[i].date.getMonth(), (date[i].date.getDate()));
+        const currentDate = getFullDate(date[i].date);
         for(j = 0; j < newDateList.length; j++) {
             if(currentDate.getTime() === newDateList[j].getTime()) notHave = false;
         }
         if(notHave === true) newDateList.push(currentDate);
     }
     return newDateList;
+}
+
+export function getDateMinusDays(date, days){
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate() - days)
 }
