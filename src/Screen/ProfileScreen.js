@@ -8,21 +8,24 @@ function ProfileScreen({navigation, route}) {
     const accountCtx = useContext(AccountContext);
 
     const {id} = route.params;
+    const index = accountCtx.account.findIndex(
+        (account) => account.id === id
+    )
     // const {name} = route.params;
     // const {email} = route.params;
     // const {phone} = route.params;
 
-    const name = accountCtx.account[id].name;
-    const email = accountCtx.account[id].email;
-    const phone = accountCtx.account[id].phone;
+    const name = accountCtx.account[index].name;
+    const email = accountCtx.account[index].email;
+    const phone = accountCtx.account[index].phone;
+    const password = accountCtx.account[index].password;
 
     const [inputValues, setInputValues] = useState({
         name: name,
         email: email,
         phone: phone,
+        password: password,
     });
-
-    const [password, setPassword] = useState('');
 
     function inputChangeHandlder(inputIdentifier, enteredValue) {
         setInputValues((curInputValues) => {
@@ -61,13 +64,13 @@ function ProfileScreen({navigation, route}) {
                         onChangeText={inputChangeHandlder.bind(this, 'phone')}
                     />
                 </View>
-                {/* <View style={styles.input}>
+                <View style={styles.input}>
                     <Text style={styles.inputText}>Password</Text>
                     <TextInput value={password} style={styles.inputField} 
-                        onChangeText={setPassword}
+                        onChangeText={inputChangeHandlder.bind(this, 'password')}
                         secureTextEntry
                     />
-                </View> */}
+                </View>
             </View>
             <TouchableOpacity style={styles.button} onPress={() => {
                 const index = accountCtx.account.findIndex(
@@ -79,7 +82,7 @@ function ProfileScreen({navigation, route}) {
                     email: inputValues.email,
                     name: inputValues.name,
                     phone: inputValues.phone,
-                    // password: password,
+                    password: inputValues.password,
                 });
                 navigation.navigate('Home',{
                     id: id,

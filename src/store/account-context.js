@@ -67,9 +67,10 @@ export const AccountContext = createContext({
     toDoList: [],
     addAccount: ({ email, password, name, phone }) => {},
     updateAccount: (id, { email, name, phone }) => {},
-    createList: ({ title, date, category }) => {},
+    createList: ({ title, date, category, check }) => {},
     editList: (id, { title, date, category }) => {},
     checkedList: (id) => {},
+    deleteList: (id) => {},
 })
 
 function accountReducer(state, action) {
@@ -114,6 +115,8 @@ function toDoListReducer(state, action) {
             const checkedToDoList = [...state];
             checkedToDoList[checkToDoList] = checkToDoList;
             return checkedToDoList;
+        case 'DELETE':
+            return state.filter((toDoList) => toDoList.id !== action.payload.id);
         default:
             return state;
     }
@@ -143,6 +146,10 @@ function AccountContextProvider({ children }) {
         dispatchToDoList({ type:'CHECK', payload: {id: id}});
     }
 
+    function deleteList(id){
+        dispatchToDoList({ type:'DELETE', payload: {id: id}});
+    }
+
     const value = {
         account: accountState,
         toDoList: toDoListState,
@@ -151,6 +158,7 @@ function AccountContextProvider({ children }) {
         createList: createList,
         editList: editList,
         checkedList: checkedList,
+        deleteList: deleteList,
     }
 
     return (

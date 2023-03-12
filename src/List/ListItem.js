@@ -1,6 +1,8 @@
 //third
-import React, {useContext} from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React, {useState, useContext} from "react";
+import { View, Text, StyleSheet, Pressable, TouchableOpacity } from "react-native";
+
+import EditScreen from "../Screen/EditScreen";
 
 import { MaterialIcons } from '@expo/vector-icons';
 import { AccountContext } from "../store/account-context";
@@ -44,6 +46,8 @@ const Check = ({ checked, isHome }) => {
 function ListItem({ title, date, catagory, check, id, expand, isHome }) {
     const accountCtx = useContext(AccountContext);
 
+    const [editModalVisible, setEditModalVisible] = useState(false);
+
     // const currentDate = (actDate) => {
     //     const curDate = new Date();
 
@@ -58,6 +62,10 @@ function ListItem({ title, date, catagory, check, id, expand, isHome }) {
 
     // const show = currentDate(date);
 
+    function goEdit({navigation}){
+        navigation.navigate('Edit')
+    }
+
     return(
         <View>
             {expand&&(
@@ -65,13 +73,24 @@ function ListItem({ title, date, catagory, check, id, expand, isHome }) {
                     <View style={{marginTop: 7, marginHorizontal: 10}}>
                         <Circle catagory={catagory}/>
                     </View>
-                    <View style={{flexDirection: 'column', alignSelf: 'center', justifyContent: 'center', width: 250}}>
+                    <TouchableOpacity style={{flexDirection: 'column', alignSelf: 'center', justifyContent: 'center', width: 250}} onPress={() => {
+                        setEditModalVisible(true);
+                    }}>
                         <Text style={{fontSize: 16, marginTop: 3}}>{title}</Text>
                         <Text style={{fontSize: 16, marginVertical: 5}}>{getTimeFormat(date)}</Text>
-                    </View>
+                    </TouchableOpacity>
                     <Pressable onPress={() => accountCtx.checkedList(id)}>
                         <Check checked={check} isHome={isHome} />
                     </Pressable>
+
+                    <EditScreen
+                        createModalVisible={editModalVisible}
+                        setCreateModalVisible={setEditModalVisible}
+                        id={id}
+                        title={title}
+                        oldDate={date}
+                        category={catagory}
+                    />
                 </View>
             )}
 

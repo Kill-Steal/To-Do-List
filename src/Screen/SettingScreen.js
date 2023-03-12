@@ -35,14 +35,14 @@ function SettingScreen({modalVisible, setModalVisible , showName, showEmail, sho
                                 <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 190}} />
                             </TouchableOpacity>
                         </View>
-                        <View>
+                        {/* <View>
                             <View style={modalStyles.line} />
                             <TouchableOpacity style={modalStyles.Button}>
                                 <FontAwesome5 name="palette" size={30} color="black" style={{alignSelf: 'center'}} />
                                 <Text style={modalStyles.textButton}>Dark Theme</Text>
                                 <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 147}} />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View>
                             <View style={modalStyles.line} />
                             <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); goLogin();}}>
@@ -75,7 +75,7 @@ const modalStyles = StyleSheet.create({
     container: {
         backgroundColor: '#C1AEFC',
         width: 360,
-        height: 390,
+        height: 330,
         borderRadius: 20,
         marginTop: 50
     },
