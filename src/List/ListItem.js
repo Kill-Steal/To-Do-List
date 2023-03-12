@@ -23,19 +23,25 @@ const Circle = ({ catagory }) => {
     );
 }
 
-const Check = ({ checked }) => {
+const Check = ({ checked, isHome }) => {
     let shape = "check-box";
-    if(checked === false) shape = "check-box-outline-blank";
-    else if(checked === true) shape = "check-box";
+    if(isHome === true){
+        if(checked === false){ shape = "check-box-outline-blank"; color = 'white' }
+        else if(checked === true) { shape = "check-box"; color = 'white' }
+    }else {
+        if(checked === false) { shape = "block"; color = 'red'; }
+        else if(checked === true) { shape = "check-box"; color = 'white' }
+    }
+    
 
     return (
-        <MaterialIcons name={shape} size={42} color="white" style={{
+        <MaterialIcons name={shape} size={42} color={color} style={{
             marginTop: 5
         }} />
     )
 }
 
-function ListItem({ title, date, catagory, check, id, expand }) {
+function ListItem({ title, date, catagory, check, id, expand, isHome }) {
     const accountCtx = useContext(AccountContext);
 
     // const currentDate = (actDate) => {
@@ -64,7 +70,7 @@ function ListItem({ title, date, catagory, check, id, expand }) {
                         <Text style={{fontSize: 16, marginVertical: 5}}>{getTimeFormat(date)}</Text>
                     </View>
                     <Pressable onPress={() => accountCtx.checkedList(id)}>
-                        <Check checked={check} />
+                        <Check checked={check} isHome={isHome} />
                     </Pressable>
                 </View>
             )}

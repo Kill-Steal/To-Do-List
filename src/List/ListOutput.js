@@ -9,7 +9,7 @@ import { AccountContext } from "../store/account-context";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-function ListOutput({date, sortedData}) {
+function ListOutput({date, sortedData, isHome}) {
     const accountCtx = useContext(AccountContext);
 
     const [expand, setExpand] = useState(true); //Don't forget set true
@@ -62,6 +62,7 @@ function ListOutput({date, sortedData}) {
                                 check={item.check}
                                 id={item.id}
                                 expand={expand}
+                                isHome={isHome}
                             />
                         )}
                     />

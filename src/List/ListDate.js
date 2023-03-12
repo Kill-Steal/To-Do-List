@@ -8,26 +8,23 @@ import { ListFilter } from "./ListFilter";
 
 import { getFullDate, getDateFormat, removeSameDate } from "../Utility/date";
 
-function ListDate() {
+function ListDate({isHome}) {
     const accountCtx = useContext(AccountContext);
 
     const sortedToDoList = accountCtx.toDoList.sort((p1, p2) => (p1.date < p2.date) ? -1 : (p1.date > p2.date) ? 1 : 0);    
 
     dateList = removeSameDate(sortedToDoList);
 
-    const filterList = ListFilter(dateList, 0);
+    const filterList = ListFilter(dateList, 0, isHome);
 
     return (
         <FlatList
             data={filterList}
             keyExtractor={(item) => item}
             renderItem={({item}) => (
-                <ListOutput date={item} sortedData={sortedToDoList}/>
+                <ListOutput date={item} sortedData={sortedToDoList} isHome={isHome}/>
             )}
         />
-        // <View>
-        //     <ListOutput date={getDateFormat(date)}/>
-        // </View>
     );
 
 }

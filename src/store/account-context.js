@@ -53,6 +53,13 @@ const ToDoList =[
         category: 1,
         check: true
     },
+    {
+        id: 6,
+        title: 'Future',
+        date: new Date('2023-03-20 13:30'),
+        category: 1,
+        check: false
+    },
 ]
 
 export const AccountContext = createContext({
@@ -133,7 +140,6 @@ function AccountContextProvider({ children }) {
     }
 
     function checkedList(id){
-        console.log("Do It: "+id);
         dispatchToDoList({ type:'CHECK', payload: {id: id}});
     }
 

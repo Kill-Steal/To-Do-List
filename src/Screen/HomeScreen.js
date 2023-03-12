@@ -53,7 +53,7 @@ function HomeScreen({ navigation, route }){
                 </View>
             </View>
 
-            <ListDate/>
+            <ListDate isHome={true}/>
 
             <SettingScreen
                 modalVisible={modalVisible}
@@ -71,6 +71,7 @@ function HomeScreen({ navigation, route }){
                         // phone: phone,
                     });
                 }}
+                goActivity={() => navigation.navigate('Activity')}
             />
 
         </View>
