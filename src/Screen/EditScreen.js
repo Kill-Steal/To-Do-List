@@ -130,7 +130,6 @@ function EditScreen({createModalVisible, setCreateModalVisible, id, title, oldDa
     }
 
     const createHandle = () => {
-        const title = activity;
         const date = new Date(
             newSelectedDate.getFullYear(),
             newSelectedDate.getMonth(),
@@ -138,21 +137,19 @@ function EditScreen({createModalVisible, setCreateModalVisible, id, title, oldDa
             parseInt(`${selectedTimeHours10}${selectedTimeHours1}`),
             parseInt(`${selectedTimeMins10}${selectedTimeMins1}`)
         )
-        let priority = selectCircle;
         accountCtx.editList(id,{
-            title: title,
+            title: activity,
             date: date,
-            category: priority,
-            check: false
+            category: selectCircle
         })
         setActivity(title);
         setSelectedDate(getDateYearFormat(date));
-        setSelectedTimeHours10(0);
-        setSelectedTimeHours1(0);
-        setSelectedTimeMins10(0);
-        setSelectedTimeMins1(0);
-        setSelectCircle(category)
-        setNewSelectedDate(undefined);
+        setSelectedTimeHours10(selectedTimeHours10);
+        setSelectedTimeHours1(selectedTimeHours1);
+        setSelectedTimeMins10(selectedTimeMins10);
+        setSelectedTimeMins1(selectedTimeMins1);
+        setSelectCircle(selectCircle)
+        setNewSelectedDate(date);
         setCreateModalVisible(false);
     }
 
@@ -252,7 +249,9 @@ function EditScreen({createModalVisible, setCreateModalVisible, id, title, oldDa
                                 <Text style={{fontSize: 25}}>CANCEL</Text>
                             </TouchableOpacity>
                             <View style={{width: 2, height: 80}}></View>
-                            <TouchableOpacity style={[styles.exitButton, {borderBottomRightRadius: 20}]} onPress={() => createHandle()}>
+                            <TouchableOpacity style={[styles.exitButton, {borderBottomRightRadius: 20}]} onPress={() => {
+                                createHandle();
+                            }}>
                                 <Text style={{fontSize: 25}}>CREATE</Text>
                             </TouchableOpacity>
                         </View>

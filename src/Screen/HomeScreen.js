@@ -17,8 +17,8 @@ function HomeScreen({ navigation, route }){
     const [createModalVisible, setCreateModalVisible] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
 
-    const { id } = route.params;
-    // const id = 1;
+    // const { id } = route.params;
+    const id = 1;
     
     const index = accountCtx.account.findIndex(
         (account) => account.id === id

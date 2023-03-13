@@ -105,7 +105,7 @@ function toDoListReducer(state, action) {
             const updatedItem = {...updatableToDoList, ...action.payload.data};
             const updatedToDoList = [...state];
             updatedToDoList[updatableToDoListIndex] = updatedItem;
-            return updatableToDoList;
+            return updatedToDoList;
         case 'CHECK':
             const checkToDoListIndex = state.findIndex(
                 (toDoList) => toDoList.id === action.payload.id
