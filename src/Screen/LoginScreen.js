@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Button } from "react-native";
 
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -66,6 +66,11 @@ function LoginScreen({ navigation }) {
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Register')} >
                 <Ionicons name="chevron-back" size={55} color="#ecf2ff" />
             </TouchableOpacity>
+
+            <View style={{height: 50, width: 100, alignSelf: 'center', marginTop: 50}}>
+                <Button title="Credit" onPress={() => navigation.navigate("Credit")} />
+            </View>
+            
         </View>
     );
 }
