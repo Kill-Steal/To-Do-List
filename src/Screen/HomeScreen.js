@@ -15,6 +15,7 @@ function HomeScreen({ navigation, route }){
 
     const [modalVisible, setModalVisible] = useState(false);
     const [createModalVisible, setCreateModalVisible] = useState(false);
+    const [darkMode, setDarkMode] = useState(true);
 
     const { id } = route.params;
     // const id = 1;
@@ -38,7 +39,7 @@ function HomeScreen({ navigation, route }){
     // if(showPhone === '') setShowPhone('0899988899')
     // console.log(`ID: ${id}`)
     return (
-        <View style={styles.container}>
+        <View style={[darkMode ? {backgroundColor: '#383D56'} : {backgroundColor: '#E3DFFD'} , styles.container]}>
             <View style={styles.header}>
                 <FontAwesome name="sticky-note" size={60} color="#e3dffd" style={{position: 'absolute', marginTop: 45, marginLeft: 30}} />
                 <View style={styles.profile}>
@@ -55,7 +56,7 @@ function HomeScreen({ navigation, route }){
                 </View>
             </View>
 
-            <ListDate isHome={true}/>
+            <ListDate isHome={true} darkMode={darkMode}/>
 
             <View style={styles.createButton}>
                 <TouchableOpacity onPress={() => setCreateModalVisible(true)}>
@@ -83,7 +84,10 @@ function HomeScreen({ navigation, route }){
                 }}
                 goActivity={() => navigation.navigate('Activity',{
                     id: id,
+                    darkMode: darkMode
                 })}
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
             />
 
         </View>
@@ -94,7 +98,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: '#383D56',
     },
     header: {
         backgroundColor: '#c1aefc',

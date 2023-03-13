@@ -9,7 +9,7 @@ import { AccountContext } from "../store/account-context";
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-function ListOutput({date, sortedData, isHome}) {
+function ListOutput({date, sortedData, isHome, darkMode}) {
     const accountCtx = useContext(AccountContext);
 
     const [expand, setExpand] = useState(true); //Don't forget set true
@@ -50,7 +50,7 @@ function ListOutput({date, sortedData, isHome}) {
             </View>
 
             {expand&&(
-                <View style={listStyles.content}>
+                <View style={[listStyles.content, darkMode ? {backgroundColor: '#E3DFFD'}:{backgroundColor: '#ECF2FF',}]}>
                     <FlatList
                         data={listCurrentDate}
                         keyExtractor={(item) => item.id}
@@ -63,6 +63,7 @@ function ListOutput({date, sortedData, isHome}) {
                                 id={item.id}
                                 expand={expand}
                                 isHome={isHome}
+                                darkMode={darkMode}
                             />
                         )}
                     />

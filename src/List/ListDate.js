@@ -8,7 +8,7 @@ import { ListFilter } from "./ListFilter";
 
 import { getFullDate, getDateFormat, removeSameDate } from "../Utility/date";
 
-function ListDate({isHome}) {
+function ListDate({isHome, darkMode}) {
     const accountCtx = useContext(AccountContext);
 
     const sortedToDoList = accountCtx.toDoList.sort((p1, p2) => (p1.date < p2.date) ? -1 : (p1.date > p2.date) ? 1 : 0);    
@@ -22,7 +22,7 @@ function ListDate({isHome}) {
             data={filterList}
             keyExtractor={(item) => item}
             renderItem={({item}) => (
-                <ListOutput date={item} sortedData={sortedToDoList} isHome={isHome}/>
+                <ListOutput date={item} sortedData={sortedToDoList} isHome={isHome} darkMode={darkMode}/>
             )}
         />
     );

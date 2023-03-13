@@ -7,9 +7,10 @@ import ListDate from "../List/ListDate";
 
 function ActivityScreen({navigation, route}) {
     const {id} = route.params;
+    const {darkMode} = route.params;
 
     return (
-        <View style={styles.container}>
+        <View style={[darkMode ? {backgroundColor: '#383D56'} : {backgroundColor: '#E3DFFD'} , styles.container]}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home', {
                     id: id,
@@ -28,7 +29,6 @@ function ActivityScreen({navigation, route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#383D56"
     },
     header: {
         backgroundColor: '#c1aefc',

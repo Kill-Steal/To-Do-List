@@ -43,7 +43,7 @@ const Check = ({ checked, isHome }) => {
     )
 }
 
-function ListItem({ title, date, catagory, check, id, expand, isHome }) {
+function ListItem({ title, date, catagory, check, id, expand, isHome, darkMode}) {
     const accountCtx = useContext(AccountContext);
 
     const [editModalVisible, setEditModalVisible] = useState(false);

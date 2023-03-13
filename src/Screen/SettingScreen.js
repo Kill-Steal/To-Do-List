@@ -1,17 +1,18 @@
 import React from "react";
 import { View, Text, StyleSheet, Modal, TouchableOpacity, Pressable, TouchableWithoutFeedback } from "react-native";
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-function SettingScreen({modalVisible, setModalVisible , showName, showEmail, showPhone, goLogin, goProfile, goActivity}) {
+function SettingScreen({modalVisible, setModalVisible , showName, showEmail, showPhone, goLogin, goProfile, goActivity, darkMode, setDarkMode}) {
     return (
         <Modal animationType="fade" transparent={true} visible={modalVisible} statusBarTranslucent={true}>
             <Pressable style={modalStyles.background} onPress={() => setModalVisible(false)}>
                 <TouchableWithoutFeedback>
-                    <View style={modalStyles.container}>
+                    <View style={[darkMode ? {backgroundColor: '#C1AEFC'} : {backgroundColor: '#E3DFFD'} , modalStyles.container]}>
                         <View style={modalStyles.profile}>
                             <View style={modalStyles.profileDetail}>
                                 <Text style={{fontSize: 17, marginTop: 6}}>{showName}</Text>
@@ -35,14 +36,14 @@ function SettingScreen({modalVisible, setModalVisible , showName, showEmail, sho
                                 <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 190}} />
                             </TouchableOpacity>
                         </View>
-                        {/* <View>
+                        <View>
                             <View style={modalStyles.line} />
-                            <TouchableOpacity style={modalStyles.Button}>
+                            <Pressable style={modalStyles.Button} onPress={() => setDarkMode(!darkMode)}>
                                 <FontAwesome5 name="palette" size={30} color="black" style={{alignSelf: 'center'}} />
                                 <Text style={modalStyles.textButton}>Dark Theme</Text>
-                                <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 147}} />
-                            </TouchableOpacity>
-                        </View> */}
+                                <MaterialCommunityIcons name={darkMode ? "toggle-switch" : "toggle-switch-off"} size={45} color="black" style={{alignSelf: 'center', marginLeft: 130}} />
+                            </Pressable>
+                        </View>
                         <View>
                             <View style={modalStyles.line} />
                             <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); goLogin();}}>
@@ -73,9 +74,8 @@ const modalStyles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.25)'
     },
     container: {
-        backgroundColor: '#C1AEFC',
         width: 360,
-        height: 330,
+        height: 405,
         borderRadius: 20,
         marginTop: 50
     },

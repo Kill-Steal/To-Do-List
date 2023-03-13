@@ -8,7 +8,7 @@ import { AccountContext } from "../store/account-context";
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
 
-function CreateScreen({createModalVisible, setCreateModalVisible}) {
+function CreateScreen({createModalVisible, setCreateModalVisible, darkMode}) {
     const accountCtx = useContext(AccountContext);
 
     const [activity, setActivity] = useState('');
@@ -168,7 +168,7 @@ function CreateScreen({createModalVisible, setCreateModalVisible}) {
 
     return (
         <Modal animationType='slide' transparent={false} visible={createModalVisible} statusBarTranslucent={true}>
-            <Pressable style={styles.background} onPress={() => setCreateModalVisible(false)}>
+            <Pressable style={[styles.background, darkMode ? {backgroundColor: '#383D56'}:{backgroundColor: '#E3DFFD'}]} onPress={() => setCreateModalVisible(false)}>
                 <TouchableWithoutFeedback>
                     <View style={styles.container}>
                         <TextInput style={styles.inputText} placeholder="ENTER YOUR ACTIVITY" onChangeText={setActivity} value={activity} />
@@ -267,7 +267,6 @@ function CreateScreen({createModalVisible, setCreateModalVisible}) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#383D56',
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
