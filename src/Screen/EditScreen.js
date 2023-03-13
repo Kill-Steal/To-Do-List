@@ -252,7 +252,7 @@ function EditScreen({createModalVisible, setCreateModalVisible, id, title, oldDa
                             <TouchableOpacity style={[styles.exitButton, {borderBottomRightRadius: 20}]} onPress={() => {
                                 createHandle();
                             }}>
-                                <Text style={{fontSize: 25}}>CREATE</Text>
+                                <Text style={{fontSize: 25}}>EDIT</Text>
                             </TouchableOpacity>
                         </View>
 
