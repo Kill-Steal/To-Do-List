@@ -5,11 +5,15 @@ import { Ionicons } from '@expo/vector-icons';
 
 import ListDate from "../List/ListDate";
 
-function ActivityScreen({navigation}) {
+function ActivityScreen({navigation, route}) {
+    const {id} = route.params;
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')} >
+                <TouchableOpacity onPress={() => navigation.navigate('Home', {
+                    id: id,
+                })} >
                     <Ionicons name="chevron-back" size={55} color="#ecf2ff" />
                 </TouchableOpacity>
                 <Text style={styles.headerText}>ACTIVITY</Text>

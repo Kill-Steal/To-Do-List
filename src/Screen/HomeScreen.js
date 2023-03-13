@@ -81,7 +81,9 @@ function HomeScreen({ navigation, route }){
                         // phone: phone,
                     });
                 }}
-                goActivity={() => navigation.navigate('Activity')}
+                goActivity={() => navigation.navigate('Activity',{
+                    id: id,
+                })}
             />
 
         </View>
