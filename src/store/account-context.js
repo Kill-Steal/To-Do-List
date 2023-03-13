@@ -21,7 +21,7 @@ const ToDoList =[
     {
         id: 1,
         title: 'Play Game!!!',
-        date: new Date('2023-03-11 23:30'),
+        date: new Date('2023-03-12 23:30'),
         category: 0,
         check: true
     },
@@ -46,16 +46,31 @@ const ToDoList =[
         category: 1,
         check: true
     },
-]
+    {
+        id: 5,
+        title: 'Somethings',
+        date: new Date('2023-03-11 13:30'),
+        category: 1,
+        check: true
+    },
+    {
+        id: 6,
+        title: 'Future',
+        date: new Date('2023-03-20 13:30'),
+        category: 1,
+        check: false
+    },
+];
 
 export const AccountContext = createContext({
     account: [],
     toDoList: [],
     addAccount: ({ email, password, name, phone }) => {},
     updateAccount: (id, { email, name, phone }) => {},
-    createList: ({ title, date, category }) => {},
+    createList: ({ title, date, category, check }) => {},
     editList: (id, { title, date, category }) => {},
     checkedList: (id) => {},
+    deleteList: (id) => {},
 })
 
 function accountReducer(state, action) {
@@ -100,6 +115,8 @@ function toDoListReducer(state, action) {
             const checkedToDoList = [...state];
             checkedToDoList[checkToDoList] = checkToDoList;
             return checkedToDoList;
+        case 'DELETE':
+            return state.filter((toDoList) => toDoList.id !== action.payload.id);
         default:
             return state;
     }
@@ -126,8 +143,11 @@ function AccountContextProvider({ children }) {
     }
 
     function checkedList(id){
-        console.log("Do It: "+id);
         dispatchToDoList({ type:'CHECK', payload: {id: id}});
+    }
+
+    function deleteList(id){
+        dispatchToDoList({ type:'DELETE', payload: {id: id}});
     }
 
     const value = {
@@ -138,6 +158,7 @@ function AccountContextProvider({ children }) {
         createList: createList,
         editList: editList,
         checkedList: checkedList,
+        deleteList: deleteList,
     }
 
     return (

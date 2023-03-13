@@ -1,28 +1,30 @@
 import React, {useState, useContext} from "react";
-import { View, Text, StyleSheet, Modal, Pressable, TouchableWithoutFeedback, TextInput, Button } from "react-native";
+import { View, Text, StyleSheet, Modal, Pressable, TouchableWithoutFeedback, TextInput, TouchableOpacity } from "react-native";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import { getDateYearFormat } from "../Utility/date";
+import { getDateYearFormat, getTimeFormat } from "../Utility/date";
 import { AccountContext } from "../store/account-context";
 
 import { MaterialIcons } from '@expo/vector-icons';
-import { TouchableOpacity } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-function CreateScreen({createModalVisible, setCreateModalVisible}) {
+function EditScreen({createModalVisible, setCreateModalVisible, id, title, oldDate, category}) {
     const accountCtx = useContext(AccountContext);
 
-    const [activity, setActivity] = useState('');
-    const [selectedDate, setSelectedDate] = useState('Insert Date');
-    const [newSelectedDate, setNewSelectedDate] = useState();
+    const [activity, setActivity] = useState(title);
+    const [selectedDate, setSelectedDate] = useState(getDateYearFormat(oldDate));
+    const [newSelectedDate, setNewSelectedDate] = useState(oldDate);
 
     const [datePickerVisible, setDatePickerVisible] = useState(false);
 
-    const [selectedTimeHours10, setSelectedTimeHours10] = useState(0);
-    const [selectedTimeMins10, setSelectedTimeMins10] = useState(0);
-    const [selectedTimeHours1, setSelectedTimeHours1] = useState(0);
-    const [selectedTimeMins1, setSelectedTimeMins1] = useState(0);
+    const dateString = getTimeFormat(oldDate);
 
-    const [selectCircle, setSelectCircle] = useState(-1);
+    const [selectedTimeHours10, setSelectedTimeHours10] = useState(dateString[0]);
+    const [selectedTimeMins10, setSelectedTimeMins10] = useState(dateString[1]);
+    const [selectedTimeHours1, setSelectedTimeHours1] = useState(dateString[3]);
+    const [selectedTimeMins1, setSelectedTimeMins1] = useState(dateString[4]);
+
+    const [selectCircle, setSelectCircle] = useState(category);
 
     const selCir1 = () => {
         setSelectCircle(0);
@@ -137,32 +139,32 @@ function CreateScreen({createModalVisible, setCreateModalVisible}) {
             parseInt(`${selectedTimeMins10}${selectedTimeMins1}`)
         )
         let priority = selectCircle;
-        accountCtx.createList({
+        accountCtx.editList(id,{
             title: title,
             date: date,
             category: priority,
             check: false
         })
-        setActivity('');
-        setSelectedDate('Insert Date');
+        setActivity(title);
+        setSelectedDate(getDateYearFormat(date));
         setSelectedTimeHours10(0);
         setSelectedTimeHours1(0);
         setSelectedTimeMins10(0);
         setSelectedTimeMins1(0);
-        setSelectCircle(-1)
+        setSelectCircle(category)
         setNewSelectedDate(undefined);
         setCreateModalVisible(false);
     }
 
     const cancelHandle = () => {
-        setActivity('');
-        setSelectedDate('Insert Date');
-        setSelectedTimeHours10(0);
-        setSelectedTimeHours1(0);
-        setSelectedTimeMins10(0);
-        setSelectedTimeMins1(0);
-        setSelectCircle(-1)
-        setNewSelectedDate(undefined);
+        setActivity(title);
+        setSelectedDate(getDateYearFormat(oldDate));
+        setSelectedTimeHours10(dateString[0]);
+        setSelectedTimeHours1(dateString[1]);
+        setSelectedTimeMins10(dateString[3]);
+        setSelectedTimeMins1(dateString[4]);
+        setSelectCircle(category)
+        setNewSelectedDate(oldDate);
         setCreateModalVisible(false);
     }
 
@@ -237,6 +239,13 @@ function CreateScreen({createModalVisible, setCreateModalVisible}) {
                                     [styles.circle, {backgroundColor: '#ff0000'}]: [styles.circleBorder, {backgroundColor: '#ff0000'}]} />
                             </View>
                         </View>
+
+                        <TouchableOpacity style={{marginBottom: 15}} onPress={() => {
+                            accountCtx.deleteList(id)
+                            setCreateModalVisible(false);
+                        }}>
+                            <Ionicons name="trash-bin" size={40} color="black" />
+                        </TouchableOpacity>
 
                         <View style={{flexDirection: 'row'}}>
                             <TouchableOpacity style={[styles.exitButton, {borderBottomLeftRadius: 20}]} onPress={() => cancelHandle()}>
@@ -315,7 +324,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 8,
         paddingVertical: 5,
-        marginBottom: 80
+        marginBottom: 20
     },
     circle: {
         borderRadius: 10,
@@ -338,4 +347,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CreateScreen;
+export default EditScreen;

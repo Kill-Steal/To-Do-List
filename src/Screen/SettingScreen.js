@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-function SettingScreen({modalVisible, setModalVisible , showName, showEmail, showPhone, goLogin, goProfile}) {
+function SettingScreen({modalVisible, setModalVisible , showName, showEmail, showPhone, goLogin, goProfile, goActivity}) {
     return (
         <Modal animationType="fade" transparent={true} visible={modalVisible} statusBarTranslucent={true}>
             <Pressable style={modalStyles.background} onPress={() => setModalVisible(false)}>
@@ -29,20 +29,20 @@ function SettingScreen({modalVisible, setModalVisible , showName, showEmail, sho
                         </View>
                         <View>
                             <View style={modalStyles.line} />
-                            <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); navigation.navigate('Activity')}}>
+                            <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); goActivity()}}>
                                 <Ionicons name="newspaper" size={30} color="black" style={{alignSelf: 'center'}} />
                                 <Text style={modalStyles.textButton}>Activity</Text>
                                 <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 190}} />
                             </TouchableOpacity>
                         </View>
-                        <View>
+                        {/* <View>
                             <View style={modalStyles.line} />
                             <TouchableOpacity style={modalStyles.Button}>
                                 <FontAwesome5 name="palette" size={30} color="black" style={{alignSelf: 'center'}} />
                                 <Text style={modalStyles.textButton}>Dark Theme</Text>
                                 <MaterialIcons name="arrow-forward-ios" size={28} color="black" style={{alignSelf: 'center', marginLeft: 147}} />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View>
                             <View style={modalStyles.line} />
                             <TouchableOpacity style={modalStyles.Button} onPress={() => {setModalVisible(false); goLogin();}}>
@@ -75,7 +75,7 @@ const modalStyles = StyleSheet.create({
     container: {
         backgroundColor: '#C1AEFC',
         width: 360,
-        height: 390,
+        height: 330,
         borderRadius: 20,
         marginTop: 50
     },

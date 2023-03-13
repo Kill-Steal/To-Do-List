@@ -1,5 +1,4 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -9,6 +8,7 @@ import RegisterScreen from "./src/Screen/RegisterScreen";
 import AccountContextProvider from "./src/store/account-context";
 import ActivityScreen from "./src/Screen/ActivityScreen";
 import ProfileScreen from "./src/Screen/ProfileScreen";
+import EditScreen from "./src/Screen/EditScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,9 +17,9 @@ function App () {
     <AccountContextProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }} >
-          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Activity" component={ActivityScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
         </Stack.Navigator>  
@@ -27,9 +27,5 @@ function App () {
     </AccountContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  
-});
 
 export default App;

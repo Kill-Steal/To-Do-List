@@ -1,29 +1,31 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, FlatList, Button } from "react-native";
 
-import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import ListDate from "../List/ListDate";
 import SettingScreen from "./SettingScreen";
 import { AccountContext } from "../store/account-context";
+import CreateScreen from "./CreateScreen";
 
 function HomeScreen({ navigation, route }){
     const accountCtx = useContext(AccountContext);
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [createModalVisible, setCreateModalVisible] = useState(false);
 
-    // const { id } = route.params;
-    const id = 1;
+    const { id } = route.params;
+    // const id = 1;
     
     const index = accountCtx.account.findIndex(
         (account) => account.id === id
     )
 
-    const name = accountCtx.account[id].name;
-    const email = accountCtx.account[id].email;
-    const phone = accountCtx.account[id].phone;
+    const name = accountCtx.account[index].name;
+    const email = accountCtx.account[index].email;
+    const phone = accountCtx.account[index].phone;
 
     // console.log(accountCtx.account);
 
@@ -38,6 +40,7 @@ function HomeScreen({ navigation, route }){
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <FontAwesome name="sticky-note" size={60} color="#e3dffd" style={{position: 'absolute', marginTop: 45, marginLeft: 30}} />
                 <View style={styles.profile}>
                     <Text style={styles.name}>{name}</Text>
                     <Pressable style={styles.profilePic} onPress={() => setModalVisible(true)} >
@@ -46,14 +49,21 @@ function HomeScreen({ navigation, route }){
                 </View>
                 <View style={{flexDirection: 'row'}}>
                     <View style={styles.searchBar}>
-                        <MaterialIcons name="search" size={24} color="white" style={{marginRight: 6}} />
+                        {/* <MaterialIcons name="search" size={24} color="white" style={{marginRight: 6}} /> */}
+                        <Text style={{fontSize: 20}}>{`Today is ${new Date().getDate()}-${new Date().getMonth()+1}-${new Date().getFullYear()}`}</Text>
                     </View>
-                    <MaterialCommunityIcons name="bell" size={28} color="#e3dffd" style={styles.bell} />
-                    <View style={styles.dot}></View>
                 </View>
             </View>
 
-            <ListDate/>
+            <ListDate isHome={true}/>
+
+            <View style={styles.createButton}>
+                <TouchableOpacity onPress={() => setCreateModalVisible(true)}>
+                    <AntDesign name="pluscircle" size={50} color="#C1AEFC" /> 
+                </TouchableOpacity>
+            </View>
+
+            <CreateScreen createModalVisible={createModalVisible} setCreateModalVisible={setCreateModalVisible}/>
 
             <SettingScreen
                 modalVisible={modalVisible}
@@ -71,6 +81,9 @@ function HomeScreen({ navigation, route }){
                         // phone: phone,
                     });
                 }}
+                goActivity={() => navigation.navigate('Activity',{
+                    id: id,
+                })}
             />
 
         </View>
@@ -116,14 +129,14 @@ const styles = StyleSheet.create({
         borderRadius: 25
     },
     searchBar: {
-        width: 330,
+        width: 365,
         height: 30,
         backgroundColor: '#e3dffd',
         marginTop: 8,
         marginLeft: 14,
         borderRadius: 8,
         justifyContent: 'center',
-        alignItems: 'flex-end'
+        alignItems: 'center',
     },
     bell: {
         alignSelf: 'flex-end',
@@ -140,6 +153,14 @@ const styles = StyleSheet.create({
         marginLeft: 370,
         marginTop: 25,
         borderWidth: 1
+    },
+    createButton: {
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        marginTop: 710,
+        marginRight: '5%',
+        justifyContent: 'flex-end',
+        maxHeight: 50,
     },
 });
 
